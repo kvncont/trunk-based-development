@@ -1,0 +1,13 @@
+name: Maven 🏗️
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Maven Build
+        run: |
+          echo "Maven package (Compile, Tests, Sonar, Package)..."
