@@ -2,21 +2,24 @@ name: Promote Artifact 🚦
 
 on:
   workflow_dispatch:
-    inputs:
-      release:
-        description: Release to promote (e.g. v1.0.0)
-        required: true
-        type: string
 
 jobs:
   promote-dev:
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
     environment: dev
     steps:
+      - name: Get Tag Name
+        id: get_tag_name
+        run: |
+          TAG_NAME=${{ github.ref }}
+          TAG_NAME=${TAG_NAME#refs/tags/}
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+
       - name: Promote to Develoment
         run: |
           echo "Creating PR to promote to Development"
-          echo "Updating image tag  ${{ inputs.release }} in dev environment repository"
+          echo "Updating image tag  ${{ env.TAG_NAME }} in dev environment repository"
 
   promote-qa:
     runs-on: ubuntu-latest
@@ -26,7 +29,7 @@ jobs:
       - name: Promote to QA
         run: |
           echo "Creating PR to promote to QA"
-          echo "Updating image tag  ${{ inputs.release }} in QA environment repository"
+          echo "Updating image tag  ${{ env.TAG_NAME }} in QA environment repository"
 
   promote-stg:
     runs-on: ubuntu-latest
@@ -36,7 +39,7 @@ jobs:
       - name: Promote to Staging
         run: |
           echo "Creating PR to promote to Staging"
-          echo "Updating image tag  ${{ inputs.release }} in Staging environment repository"
+          echo "Updating image tag  ${{ env.TAG_NAME }} in Staging environment repository"
 
   promote-pro:
     runs-on: ubuntu-latest
@@ -46,4 +49,4 @@ jobs:
       - name: Promote to Production
         run: |
           echo "Creating PR to promote to Production"
-          echo "Updating image tag  ${{ inputs.release }} in Production environment repository"
+          echo "Updating image tag  ${{ env.TAG_NAME }} in Production environment repository"
