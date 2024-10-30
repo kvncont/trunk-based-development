@@ -1,0 +1,16 @@
+name: Project Mapping 🎯
+
+on:
+  pull_request:
+  issues:
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/users/kvncont/projects/7
+          github-token: ${{ secrets.GH_TOKEN }}
+          labeled: Critical, High
+          label-operator: OR
