@@ -1,0 +1,21 @@
+name: Docker 🐳
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    tags:        
+      - 'v*.*.*'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Docker Build
+        run: |
+          echo "docker build..."
+
+      - name: Docker Push
+        if: github.event_name != 'pull_request'
+        run: |
+          echo "docker push registry..."
