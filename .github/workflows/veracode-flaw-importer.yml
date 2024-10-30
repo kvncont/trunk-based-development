@@ -1,7 +1,8 @@
 name: Veracode Flaw Importer 📍
 
 on:
-  pull_request:
+  schedule:
+    - cron: '0 5 * * 1'
 
 jobs:
   veracode-flaw-importer:
