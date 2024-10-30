@@ -5,6 +5,7 @@ on:
     workflows: ["Docker 🐳"]
     types:
       - completed
+    branches: ['v*.*.*']
 
 jobs:
   promote-dev:
