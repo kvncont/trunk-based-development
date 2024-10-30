@@ -1,0 +1,12 @@
+name: Veracode Flaw Importer 📍
+
+on:
+  pull_request:
+
+jobs:
+  veracode-flaw-importer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Issue
+        run: |
+          echo "Creating Vulnerabilities as Issues in GH"

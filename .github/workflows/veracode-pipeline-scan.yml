@@ -1,0 +1,12 @@
+name: Veracode Pipeline Scan 🚨
+
+on:
+  pull_request:
+
+jobs:
+  veracode-pipeline-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scan
+        run: |
+          echo "Scanning Vulnerabilities (Pipelie Scan)"

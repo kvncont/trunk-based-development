@@ -1,0 +1,12 @@
+name: Veracode Policy Scan 🛡️
+
+on:
+  pull_request:
+
+jobs:
+  veracode-policy-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scan
+        run: |
+          echo "Scanning Vulnerabilities (Policy Scan)"
