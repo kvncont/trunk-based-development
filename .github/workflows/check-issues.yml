@@ -1,0 +1,12 @@
+name: Check Issues 📚
+
+on:
+  pull_request:
+
+jobs:
+  check-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Issues
+        run: |
+          echo "Check linked Issues in PR"
