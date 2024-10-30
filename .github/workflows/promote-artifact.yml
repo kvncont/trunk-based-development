@@ -1,0 +1,49 @@
+name: Promote Artifact 🚦
+
+on:
+  workflow_run: 
+    workflows: ["Docker 🐳"]
+    types:
+      - completed
+
+jobs:
+  promote-dev:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    environment: dev
+    steps:
+      - name: Promote to Develoment
+        run: |
+          echo "Refs: ${{ github.event.workflow_run.head_branch }}"
+          echo "Creating PR to promote to Development"
+          echo "Updating image tag in dev environment repository"
+
+  promote-qa:
+    runs-on: ubuntu-latest
+    needs: promote-dev
+    environment: dev
+    steps:
+      - name: Promote to QA
+        run: |
+          echo "Creating PR to promote to QA"
+          echo "Updating image tag in QA environment repository"
+
+  promote-stg:
+    runs-on: ubuntu-latest
+    needs: promote-qa
+    environment: dev
+    steps:
+      - name: Promote to Staging
+        run: |
+          echo "Creating PR to promote to Staging"
+          echo "Updating image tag in Staging environment repository"
+
+  promote-pro:
+    runs-on: ubuntu-latest
+    needs: promote-stg
+    environment: dev
+    steps:
+      - name: Promote to Production
+        run: |
+          echo "Creating PR to promote to Production"
+          echo "Updating image tag in Production environment repository"
