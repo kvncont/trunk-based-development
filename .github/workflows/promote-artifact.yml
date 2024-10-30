@@ -6,8 +6,8 @@ on:
 jobs:
   promote-dev:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
     environment: dev
+    if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Get Tag Name
         id: get_tag_name
@@ -19,34 +19,34 @@ jobs:
       - name: Promote to Develoment
         run: |
           echo "Creating PR to promote to Development"
-          echo "Updating image tag  ${{ env.TAG_NAME }} in dev environment repository"
+          echo "Updating image tag ${{ env.TAG_NAME }} in dev environment repository"
 
   promote-qa:
     runs-on: ubuntu-latest
+    environment: qa
     needs: promote-dev
-    environment: dev
     steps:
       - name: Promote to QA
         run: |
           echo "Creating PR to promote to QA"
-          echo "Updating image tag  ${{ env.TAG_NAME }} in QA environment repository"
+          echo "Updating image tag ${{ env.TAG_NAME }} in QA environment repository"
 
   promote-stg:
     runs-on: ubuntu-latest
+    environment: stg
     needs: promote-qa
-    environment: dev
     steps:
       - name: Promote to Staging
         run: |
           echo "Creating PR to promote to Staging"
-          echo "Updating image tag  ${{ env.TAG_NAME }} in Staging environment repository"
+          echo "Updating image tag ${{ env.TAG_NAME }} in Staging environment repository"
 
   promote-pro:
     runs-on: ubuntu-latest
+    environment: pro
     needs: promote-stg
-    environment: dev
     steps:
       - name: Promote to Production
         run: |
           echo "Creating PR to promote to Production"
-          echo "Updating image tag  ${{ env.TAG_NAME }} in Production environment repository"
+          echo "Updating image tag ${{ env.TAG_NAME }} in Production environment repository"
