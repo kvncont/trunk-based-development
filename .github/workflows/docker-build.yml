@@ -18,4 +18,6 @@ jobs:
       - name: Docker Push
         if: github.event_name != 'pull_request'
         run: |
-          echo "docker push registry..."
+          TAG_NAME=${{ github.ref }}
+          TAG_NAME=${TAG_NAME#refs/tags/}
+          echo "docker push tag $TAG_NAME to registry..."
