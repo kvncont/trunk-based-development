@@ -1,5 +1,5 @@
 name-template: 'v$RESOLVED_VERSION'
-tag-template: 'v$RESOLVED_VERSION'
+tag-template: '$RESOLVED_VERSION'
 categories:
   - title: 💥 Breaking changes
     labels:
@@ -10,6 +10,7 @@ categories:
   - title: '🐛 Bug Fixes'
     labels:
       - 'bug'
+      - 'hotfix'
   - title: '🧰 Maintenance'
     label: 'chore'
   - title: '📖 Docs'
@@ -37,27 +38,29 @@ version-resolver:
     labels:
       - 'bug'
       - 'security'
-      - 'maintenance'
       - 'documentation'
       - 'dependencies'
       - 'test'
       - 'chore'
 exclude-labels:
   - 'skip-changelog'
+  - 'documentation'
 autolabeler:
   - label: 'documentation'
-    files:
-      - '*.md'
     branch:
       - '/docs{0,1}\/.+/'
   - label: 'bug'
     branch:
       - '/fix\/.+/'
+      - '/hotfix\/.+/'
     title:
       - '/fix/i'
   - label: 'enhancement'
     branch:
       - '/feature\/.+/'
+  - label: 'breaking'
+    branch:
+      - '/^breaking(-changes|-change)?/'
 template: |
   ## What's Changed
 
